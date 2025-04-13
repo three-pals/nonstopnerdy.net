@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  
   <style>
     body {
       background-color: rgb(253, 237, 120);
@@ -25,5 +26,47 @@
 </head>
 <body>
   <h1>This is Bee's page, welcome ^-^</h1>
+
+  <canvas id="myCanvas" width="1000" height="500" style="border:0px solid #000000;">
+    Your browser does not support the HTML canvas tag.</canvas>
+    
+    <script>
+      var can = document.querySelector('canvas');
+      can.style.position = 'absolute';
+      can.style.top = "400px";
+      can.style.left = "0px";
+
+      var c = document.getElementById("myCanvas");
+      var ctx = c.getContext("2d");
+      
+      ctx.canvas.width = window.innerWidth;
+      ctx.canvas.height = window.innerHeight / 2;
+
+      var image = new Image();
+      image.src = "Star.png";
+      image.onload = function() {
+        ctx.drawImage(image, -50, -50, 100, 100);
+      };
+
+      function MoveStar(){
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        const now = new Date();
+        let ms = now.getMilliseconds() + now.getSeconds()*1000;
+        let Speed = 0.05
+        let t = Speed * ms / 100
+        let x = ctx.canvas.width / 2
+        let y = ctx.canvas.height / 2
+
+        let imsize = 200
+        
+        ctx.drawImage(image, 200*Math.cos(t) + x - imsize/2, 100*Math.sin(2 * t) + y - imsize/2, imsize, imsize);
+      }
+
+      setInterval(MoveStar,17) // 60-ish fps
+
+    
+
+    </script> 
+  <img id="Star" src="Star.png" alt="star" width="0" height="0">
 </body>
 </html>
